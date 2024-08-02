@@ -13,13 +13,11 @@ pulsesecurity = "0.1.0"
 ## Verification
 
 ```rs
-use pulsesecurity::{Pulse, TokenExpiredError, TokenNotFoundError, TokenUsedError};
+use pulsesecurity::{Pulse, PulseError};
 
+#[tokio::main]
 async fn main() {
-    let pulse = Pulse::new(
-        "SITE_KEY".to_string(),
-        "SECRET_KEY".to_string(),
-    );
+    let pulse = Pulse::new("SITE_KEY".to_string(), "SECRET_KEY".to_string());
     let token = "REQUEST_TOKEN".to_string();
 
     match pulse.classify(token).await {
