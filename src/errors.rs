@@ -46,6 +46,6 @@ pub enum PulseError {
     TokenUsedError(#[from] TokenUsedError),
     #[error("{0}")]
     TokenExpiredError(#[from] TokenExpiredError),
-    #[error("Unknown error")]
+    #[error("Unknown pulse error: {0}")]
     UnknownError(String),
 }

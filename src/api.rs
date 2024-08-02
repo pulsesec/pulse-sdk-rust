@@ -52,9 +52,7 @@ impl Pulse {
             APIClassifyResponse::IsBot { is_bot } => Ok(is_bot),
             APIClassifyResponse::Errors { errors } => {
                 if errors.is_empty() {
-                    return Err(PulseError::UnknownError(
-                        "Unknown error (no error returned)".to_string(),
-                    ));
+                    return Err(PulseError::UnknownError("No error specified".to_string()));
                 }
 
                 let error = &errors[0].clone();
@@ -63,8 +61,8 @@ impl Pulse {
                     "TOKEN_USED" => Err(TokenUsedError(error.clone()).into()),
                     "TOKEN_EXPIRED" => Err(TokenExpiredError(error.clone()).into()),
                     code => Err(PulseError::UnknownError(format!(
-                        "Unknown error code: {}",
-                        code
+                        "{} ({})",
+                        error.error, code
                     ))),
                 }
             }
@@ -90,8 +88,8 @@ mod tests {
             .create_async()
             .await;
 
-        let api = Pulse::with_url("siteKey".to_string(), "siteSecret".to_string(), m.url());
-        let result = api.classify("token".to_string()).await.unwrap();
+        let api = Pulse::with_url("SITE_KEY".to_string(), "SECRET_KEY".to_string(), m.url());
+        let result = api.classify("REQUEST_TOKEN".to_string()).await.unwrap();
 
         classify_mock.assert_async().await;
         assert_eq!(result, true);
@@ -135,16 +133,14 @@ mod tests {
                 ))
                 .create();
 
-            let api = Pulse::with_url("siteKey".to_string(), "siteSecret".to_string(), m.url());
-            let result = api.classify("token".to_string()).await;
+            let api = Pulse::with_url("SITE_KEY".to_string(), "SECRET_KEY".to_string(), m.url());
+            let result = api.classify("REQUEST_TOKEN".to_string()).await;
 
             classify_mock.assert_async().await;
 
-            // Match on the result to check for the expected error type
             match result {
                 Ok(_) => panic!("Expected an error but got an Ok result."),
                 Err(err) => {
-                    // Use PartialEq to compare the errors directly
                     assert_eq!(err, expected_error, "Error does not match");
                 }
             }

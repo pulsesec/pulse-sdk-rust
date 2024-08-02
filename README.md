@@ -11,7 +11,7 @@ cargo add pulsesecurity
 ```
 
 ```toml
-pulsesecurity = "0.1.1"
+pulsesecurity = "0.1.2"
 ```
 
 ## Verification
