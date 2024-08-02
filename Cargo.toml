@@ -1,0 +1,19 @@
+[package]
+name = "pulsesecurity"
+version = "0.1.0"
+edition = "2021"
+license-file = "LICENSE"
+description = "Pulse Security SDK"
+homepage = "https://www.pulsesecurity.org"
+repository = "https://github.com/pulsesec/pulse-sdk-rust"
+readme = "README.md"
+
+[dependencies]
+reqwest = { version = "0.11", features = ["json"] }
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1", features = ["full"] }
+thiserror = "1.0"
+
+[dev-dependencies]
+mockito = "1.5.0"
+
