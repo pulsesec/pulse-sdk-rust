@@ -7,7 +7,11 @@
 ## Installation
 
 ```sh
-pulsesecurity = "0.1.0"
+cargo add pulsesecurity
+```
+
+```toml
+pulsesecurity = "0.1.1"
 ```
 
 ## Verification
