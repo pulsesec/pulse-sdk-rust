@@ -84,7 +84,7 @@ mod tests {
         let classify_mock = m
             .mock("POST", "/api/classify")
             .with_status(200)
-            .with_body(r#"{"is_bot": true}"#)
+            .with_body(r#"{"isBot": true}"#)
             .create_async()
             .await;
 

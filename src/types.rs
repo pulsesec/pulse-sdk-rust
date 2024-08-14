@@ -9,10 +9,15 @@ pub struct APIClassifyPayload {
 }
 
 #[derive(Debug, Deserialize)]
-#[serde(untagged, rename_all = "camelCase")]
+#[serde(untagged)]
 pub enum APIClassifyResponse {
-    IsBot { is_bot: bool },
-    Errors { errors: Vec<APIErrorData> },
+    IsBot {
+        #[serde(rename = "isBot")]
+        is_bot: bool,
+    },
+    Errors {
+        errors: Vec<APIErrorData>,
+    },
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
